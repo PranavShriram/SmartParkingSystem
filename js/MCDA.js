@@ -46,17 +46,17 @@ class MCPR {
         this.priorities[2] = (1 - distPriority - pricePriority);
     }
 
-    calcEucledianDistance(xa, ya, xb, yb) {
-        return Math.sqrt((xa - xb) ^ 2 + (ya - yb) ^ 2);
+    calcManhattanDist(xa, ya, xb, yb) {
+        return Math.abs((xa - xb)) + Math.abs(ya - yb);
     }
 
     calculateUtilityValues() {
 
         for (var i = 0; i < this.numberOfParkingSpaces; i++) {
-            distBetweenDestSpace = this.calcEucledianDistance(this.parkingSpacesCoordinates[i][0], this.parkingSpacesCoordinates[i][1], this.userDestX, this.userDestY);
-            Z1i = (distBetweenDestSpace - this.maxDist) / (0 - this.maxDist);
-            Z2i = (parkingSpacesPrices[i] - this.maxPrice) / (0 - this.maxPrice);
-            Z3i = (parkingSpacesUnoccupied[i] - 1) / (this.maxSpacesProvided - 1);
+            var distBetweenDestSpace = this.calcManhattanDist(this.parkingSpacesCoordinates[i][0], this.parkingSpacesCoordinates[i][1], this.userDestX, this.userDestY);
+            var Z1i = (distBetweenDestSpace - this.maxDist) / (0 - this.maxDist);
+            var Z2i = (this.parkingSpacesPrices[i] - this.maxPrice) / (0 - this.maxPrice);
+            var Z3i = (this.parkingSpacesUnoccupied[i] - 1) / (this.maxSpacesProvided - 1);
             this.utilities[i] = Z1i * this.priorities[0] + Z2i * this.priorities[1] + Z3i * this.priorities[2];
         }
     }
