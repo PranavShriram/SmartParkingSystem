@@ -23,9 +23,9 @@ var noAvailable = document.getElementById("noAvailable");
 
 addNewParkingSpaceSubmitButton.addEventListener("click", (e) => {
     e.preventDefault();
-    mcprObject.addNewParkingSpace(xCoord.value, yCoord.value, pricePerSpace.value, noAvailable.value);
+    mcprObject.addNewParkingSpace(xCoord.value * 50, yCoord.value * 50, pricePerSpace.value, noAvailable.value);
     console.log(mcprObject.parkingSpacesCoordinates)
-    cityMap.addParkingSpaceOnMap(xCoord.value, yCoord.value);
+    cityMap.addParkingSpaceOnMap(xCoord.value * 50, yCoord.value * 50);
 });
 
 //Create destination details button
@@ -38,8 +38,8 @@ var yDest = document.getElementById("yDest");
 destinationDetailsButton.addEventListener("click", (e) => {
 
     e.preventDefault();
-    mcprObject.modifyUserDest(xDest.value, yDest.value);
-    cityMap.addDestinationOnMap(xDest.value, yDest.value);
+    mcprObject.modifyUserDest(xDest.value * 50, yDest.value * 50);
+    cityMap.addDestinationOnMap(xDest.value * 50, yDest.value * 50);
 
 });
 
@@ -51,4 +51,41 @@ findClosestSpaceButton.addEventListener("click", (e) => {
     mcprObject.calculateUtilityValues();
     var bestIndex = mcprObject.getBestSpace();
     cityMap.highlightBestSpace(mcprObject.parkingSpacesCoordinates[bestIndex][0], mcprObject.parkingSpacesCoordinates[bestIndex][1]);
+})
+
+var adminPanel = document.getElementById("adminPanel");
+var userPanel = document.getElementById("userPanel");
+
+var adminPanelButton = document.getElementById("adminPanelButton");
+var userPanelButton = document.getElementById("userPanelButton");
+console.log(adminPanelButton)
+adminPanelButton.addEventListener("click", (e) => {
+
+    adminPanel.style.display = "";
+    userPanel.style.display = "none";
+});
+
+userPanelButton.addEventListener("click", (e) => {
+    console.log("here")
+    userPanel.style.display = "";
+    adminPanel.style.display = "none";
+});
+
+//For priority info
+
+var priorityButton = document.getElementById("addPriorityInformation");
+
+priorityButton.addEventListener("click", (e) => {
+    var distPriority = parseFloat(document.getElementById("distPriority").value);
+    var pricePriority = parseFloat(document.getElementById("pricePriority").value);
+    var spacePriority = parseFloat(document.getElementById("spacePriority").value);
+
+    var sum = distPriority + pricePriority + spacePriority;
+    console.log(sum)
+    if (distPriority + pricePriority + spacePriority != 1.0) {
+        alert("Enter valide combo")
+    } else {
+        mcprObject.modifyPriorites(distPriority, pricePriority);
+    }
+
 })
