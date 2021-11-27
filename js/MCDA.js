@@ -64,6 +64,7 @@ class MCPR {
     getBestSpace() {
         var maxUtility = 0,
             index = -1;
+        console.log(this.utilities)
         for (var i = 0; i < this.numberOfParkingSpaces; i++) {
             if (this.utilities[i] > maxUtility) {
                 maxUtility = this.utilities[i];
@@ -72,4 +73,5 @@ class MCPR {
         }
         return index;
     }
+
 }
